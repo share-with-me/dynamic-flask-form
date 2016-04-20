@@ -12,30 +12,85 @@
     {% endfor %}
 </div>
 
-<h2>Assign Phones to a User</h2>
+<h2>Contact Info</h2>
 
 <form method="POST">
     {{ form.username.label }}: {{ form.username }}
-
+    <br/>
+    {{ form.age.label }}: {{ form.age }}
+    <br/>
+    {{ form.organisation.label }}: {{ form.organisation }}
+    <br/>
+    {{ form.contact_position.label }}: {{ form.contact_position }}
+    <br/>
+    {{ form.hours_of_service.label }}: {{ form.hours_of_service }}
+    <br/><br/><br/>
     <div data-toggle="fieldset" id="phone-fieldset">
          {{ form.phones.label }}  <button type="button" data-toggle="fieldset-add-row"
                                           data-target="#phone-fieldset">+</button>
         <table>
             <tr>
                 <th>Number</th>
-                <th>Extension</th>
+                <th>TTD/TTY Number</th>
+                <th>Facsimile Number</th>
                 <th></th>
             </tr>
             {% for phone in form.phones %}
                 <tr data-toggle="fieldset-entry">
                     <td>{{ phone.phone_number }}</td>
-                    <td>{{ phone.phone_name }}</td>
+                    <td>{{ phone.phone_TTD_number }}</td>
+                    <td>{{ phone.phone_fax_number }}</td>
                     <td><button type="button" data-toggle="fieldset-remove-row" id="phone-{{loop.index0}}-remove">-</button></td>
                 </tr>
             {% endfor %}
         </table>
     </div>
-    {{ form.hidden_tag() }}
+
+
+    <br/><br/><br/><br/>
+
+     <div data-toggle="fieldset" id="address-fieldset">
+         {{ form.addresses.label }}  <button type="button" data-toggle="fieldset-add-row"
+                                          data-target="#address-fieldset">+</button>
+        <table>
+            <tr>
+                <th>Address Line</th>
+                <th>City</th>
+                <th>State/Province</th>
+                <th>Country</th>
+            </tr>
+            {% for address in form.addresses %}
+                <tr data-toggle="fieldset-entry">
+                    <td>{{ address.addr_name }}</td>
+                    <td>{{ address.city_name }}</td>
+                    <td>{{ address.state_name }}</td>
+                    <td>{{ address.country_name }}</td>
+                    <td><button type="button" data-toggle="fieldset-remove-row" id="address-{{loop.index0}}-remove">-</button></td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <br/><br/><br/><br/>
+
+
+     <div data-toggle="fieldset" id="email-address-fieldset">
+         {{ form.emails.label }}  <button type="button" data-toggle="fieldset-add-row"
+                                          data-target="#email-address-fieldset">+</button>
+        <table>
+            <tr>
+                <th>Email Address</th>
+            </tr>
+            {% for email_address in form.emails %}
+                <tr data-toggle="fieldset-entry">
+                    <td>{{ email_address.email_addr_name }}</td>
+                    <td><button type="button" data-toggle="fieldset-remove-row" id="email_address-{{loop.index0}}-remove">-</button></td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <br/><br/><br/><br/>
+        {{ form.hidden_tag() }}
     {{ form.submit }}
 
 <h5> <a href="{{ url_for('index') }}">Home</a> </h5>
@@ -54,6 +109,7 @@
 </form>
 
 <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+<!--<script>window.$ = window.jQuery = require('./node_modules/jquery/dist/jquery.js');</script>-->
 <script src="{{ url_for("static", filename="js/page.js") }}"></script>
 
 </body>
